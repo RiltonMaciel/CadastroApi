@@ -153,3 +153,4 @@ C:\Users\RILTON\Desktop\Projetos\Estudos\ApiCadastro\CadastroApi\obj\Debug\net9.
 C:\Users\RILTON\Desktop\Projetos\Estudos\ApiCadastro\CadastroApi\obj\Debug\net9.0\CadastroApi.pdb
 C:\Users\RILTON\Desktop\Projetos\Estudos\ApiCadastro\CadastroApi\obj\Debug\net9.0\CadastroApi.genruntimeconfig.cache
 C:\Users\RILTON\Desktop\Projetos\Estudos\ApiCadastro\CadastroApi\obj\Debug\net9.0\ref\CadastroApi.dll
+C:\Users\RILTON\Desktop\Projetos\Estudos\ApiCadastro\CadastroApi\obj\Debug\net9.0\CadastroApi.sourcelink.json
