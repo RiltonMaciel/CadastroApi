@@ -8,14 +8,14 @@ namespace CadastroApi.Models
         public int Id { get; set; }
 
         [Required]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Required]
         [StringLength(11)]
-        public string CPF { get; set; }
+        public required string CPF { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public required string Email { get; set; }
     }
 }

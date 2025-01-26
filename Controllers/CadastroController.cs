@@ -1,80 +1,39 @@
-using CadastroApi.Data; // Importa o DbContext
-using CadastroApi.Models; // Importa o modelo Cadastro
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
-namespace CadastroApi.Controllers
+namespace SeuProjeto.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class CadastroController : ControllerBase
     {
-        private readonly AppDbContext _context;
-
-        public CadastroController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        // POST: api/cadastro
         [HttpPost]
-        public IActionResult Create(Cadastro cadastro)
+        public IActionResult CriarUsuario([FromBody] Usuario usuario)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
+            }
 
-            _context.Cadastros.Add(cadastro);
-            _context.SaveChanges();
+            // Aqui você pode salvar o usuário no banco de dados
 
-            return CreatedAtAction(nameof(GetById), new { id = cadastro.Id }, cadastro);
+            return Ok(usuario);
         }
+    }
 
-        // GET: api/cadastro
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            return Ok(_context.Cadastros.ToList());
-        }
+    public class Usuario
+    {
+        [Required(ErrorMessage = "O nome é obrigatório.")]
+        [StringLength(100, ErrorMessage = "O nome não pode ter mais de 100 caracteres.")]
+        public required string Nome { get; set; }
 
-        // GET: api/cadastro/{id}
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var cadastro = _context.Cadastros.Find(id);
-            if (cadastro == null)
-                return NotFound();
+        [Required(ErrorMessage = "O CPF é obrigatório.")]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "O CPF deve ter 11 dígitos.")]
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "O CPF deve conter apenas números.")]
+        public required string CPF { get; set; }
 
-            return Ok(cadastro);
-        }
-
-        // PUT: api/cadastro/{id}
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, Cadastro cadastro)
-        {
-            if (id != cadastro.Id)
-                return BadRequest();
-
-            if (!_context.Cadastros.Any(c => c.Id == id))
-                return NotFound();
-
-            _context.Entry(cadastro).State = EntityState.Modified;
-            _context.SaveChanges();
-
-            return NoContent();
-        }
-
-        // DELETE: api/cadastro/{id}
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var cadastro = _context.Cadastros.Find(id);
-            if (cadastro == null)
-                return NotFound();
-
-            _context.Cadastros.Remove(cadastro);
-            _context.SaveChanges();
-
-            return NoContent();
-        }
+        [Required(ErrorMessage = "O e-mail é obrigatório.")]
+        [EmailAddress(ErrorMessage = "O e-mail deve ter um formato válido.")]
+        public required string Email { get; set; }
     }
 }
